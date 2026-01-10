@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -8,7 +9,10 @@ import MovieList from './pages/MovieList';
 import MovieDetail from './pages/MovieDetail';
 import SeatSelection from './pages/SeatSelection';
 import BookingHistory from './pages/BookingHistory';
+import BookingHistory from './pages/BookingHistory';
 import AdminDashboard from './pages/AdminDashboard';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 // Main App Component
 // Sets up routing for the application
@@ -22,6 +26,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* User Routes */}
           <Route path="/movies" element={<MovieList />} />
@@ -32,6 +38,7 @@ function App() {
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );

@@ -1,0 +1,58 @@
+.footer {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 40px 0 20px;
+    margin-top: auto;
+    border-top: 1px solid #333;
+}
+
+.footer h5 {
+    color: #e50914;
+    /* Netflix-like red for branding */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.footer p {
+    color: #b3b3b3;
+    font-size: 0.9rem;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer ul li {
+    margin-bottom: 10px;
+}
+
+.footer ul li a {
+    color: #b3b3b3;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer ul li a:hover {
+    color: #ffffff;
+}
+
+.footer .social-icons a {
+    color: #ffffff;
+    font-size: 1.5rem;
+    margin-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.footer .social-icons a:hover {
+    color: #e50914;
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+    text-align: center;
+    color: #666;
+    font-size: 0.85rem;
+}

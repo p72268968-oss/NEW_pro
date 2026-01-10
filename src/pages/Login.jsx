@@ -59,6 +59,9 @@ const Login = () => {
                                         <option value="admin">Admin</option>
                                     </select>
                                 </div>
+                                <div className="mb-3 text-end">
+                                    <a href="/forgot-password" onClick={(e) => { e.preventDefault(); navigate('/forgot-password'); }} className="text-decoration-none">Forgot Password?</a>
+                                </div>
                                 <button type="submit" className="btn btn-primary w-100">Login</button>
                             </form>
                         </div>
