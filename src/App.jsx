@@ -9,7 +9,7 @@ import MovieList from './pages/MovieList';
 import MovieDetail from './pages/MovieDetail';
 import SeatSelection from './pages/SeatSelection';
 import BookingHistory from './pages/BookingHistory';
-import BookingHistory from './pages/BookingHistory';
+
 import AdminDashboard from './pages/AdminDashboard';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ResetPassword';

@@ -27,7 +27,7 @@ const Footer = () => {
                             <a href="#"><i className="bi bi-instagram"></i></a>
                             <a href="#"><i className="bi bi-youtube"></i></a>
                         </div>
-                        <p className="mt-3">Contact: support@movieticket.com</p>
+                        <p className="mt-2">Contact: support@movieticket.com</p>
                     </div>
                 </div>
                 <div className="footer-bottom">
