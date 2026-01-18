@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
-// Register Page
-// New user registration
 const Register = () => {
     const [formData, setFormData] = useState({
         name: '',
@@ -10,7 +9,10 @@ const Register = () => {
         password: '',
         confirmPassword: ''
     });
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,69 +20,444 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // TODO: Implement registration logic
-        console.log('Register:', formData);
-        navigate('/login');
+
+        if (formData.password !== formData.confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
+
+        // Auto-login after registration
+        const userData = {
+            email: formData.email,
+            name: formData.name,
+            id: Date.now()
+        };
+
+        login(userData);
+        console.log('Registration successful:', userData);
+        navigate('/');
     };
 
     return (
-        <div className="container mt-5">
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <div className="card">
-                        <div className="card-header">Register</div>
-                        <div className="card-body">
-                            <form onSubmit={handleSubmit}>
-                                <div className="mb-3">
-                                    <label className="form-label">Full Name</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Email address</label>
-                                    <input
-                                        type="email"
-                                        className="form-control"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Password</label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="mb-3">
-                                    <label className="form-label">Confirm Password</label>
-                                    <input
-                                        type="password"
-                                        className="form-control"
-                                        name="confirmPassword"
-                                        value={formData.confirmPassword}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                </div>
-                                <button type="submit" className="btn btn-success w-100">Register</button>
-                            </form>
-                        </div>
+        <div style={{
+            minHeight: '100vh',
+            background: 'linear-gradient(135deg, #000000 0%, #1a0b2e 50%, #000000 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px',
+            position: 'relative',
+            overflow: 'hidden'
+        }}>
+            {/* Animated background elements */}
+            <div style={{
+                position: 'absolute',
+                width: '500px',
+                height: '500px',
+                background: 'radial-gradient(circle, rgba(138, 43, 226, 0.15) 0%, transparent 70%)',
+                borderRadius: '50%',
+                top: '-200px',
+                right: '-200px',
+                animation: 'pulse 4s ease-in-out infinite'
+            }}></div>
+            <div style={{
+                position: 'absolute',
+                width: '400px',
+                height: '400px',
+                background: 'radial-gradient(circle, rgba(138, 43, 226, 0.1) 0%, transparent 70%)',
+                borderRadius: '50%',
+                bottom: '-150px',
+                left: '-150px',
+                animation: 'pulse 5s ease-in-out infinite'
+            }}></div>
+
+            <div style={{
+                maxWidth: '520px',
+                width: '100%',
+                position: 'relative',
+                zIndex: 2
+            }}>
+                {/* Card */}
+                <div style={{
+                    background: 'linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, rgba(0, 0, 0, 0.8) 100%)',
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(138, 43, 226, 0.3)',
+                    borderRadius: '24px',
+                    padding: '48px',
+                    boxShadow: '0 20px 60px rgba(138, 43, 226, 0.3)'
+                }}>
+                    {/* Logo/Title */}
+                    <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                        <h1 style={{
+                            fontSize: '2.5rem',
+                            fontWeight: '700',
+                            background: 'linear-gradient(45deg, var(--primary-color), #a855f7)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            marginBottom: '8px'
+                        }}>
+                            Create Account
+                        </h1>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}>
+                            Join MovieTicket and start booking
+                        </p>
                     </div>
+
+                    <form onSubmit={handleSubmit}>
+                        {/* Name Field */}
+                        <div style={{ marginBottom: '24px' }}>
+                            <label style={{
+                                display: 'block',
+                                color: 'var(--text-primary)',
+                                fontSize: '0.9rem',
+                                fontWeight: '600',
+                                marginBottom: '8px'
+                            }}>
+                                Full Name
+                            </label>
+                            <div style={{ position: 'relative' }}>
+                                <svg
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    style={{
+                                        position: 'absolute',
+                                        left: '16px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        color: 'var(--primary-color)',
+                                        pointerEvents: 'none'
+                                    }}
+                                >
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg>
+                                <input
+                                    type="text"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Enter your full name"
+                                    style={{
+                                        width: '100%',
+                                        padding: '14px 16px 14px 48px',
+                                        backgroundColor: 'rgba(138, 43, 226, 0.05)',
+                                        border: '2px solid rgba(138, 43, 226, 0.2)',
+                                        borderRadius: '12px',
+                                        color: 'var(--text-primary)',
+                                        fontSize: '1rem',
+                                        transition: 'all 0.3s',
+                                        outline: 'none'
+                                    }}
+                                    onFocus={(e) => {
+                                        e.target.style.borderColor = 'var(--primary-color)';
+                                        e.target.style.backgroundColor = 'rgba(138, 43, 226, 0.1)';
+                                    }}
+                                    onBlur={(e) => {
+                                        e.target.style.borderColor = 'rgba(138, 43, 226, 0.2)';
+                                        e.target.style.backgroundColor = 'rgba(138, 43, 226, 0.05)';
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Email Field */}
+                        <div style={{ marginBottom: '24px' }}>
+                            <label style={{
+                                display: 'block',
+                                color: 'var(--text-primary)',
+                                fontSize: '0.9rem',
+                                fontWeight: '600',
+                                marginBottom: '8px'
+                            }}>
+                                Email Address
+                            </label>
+                            <div style={{ position: 'relative' }}>
+                                <svg
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    style={{
+                                        position: 'absolute',
+                                        left: '16px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        color: 'var(--primary-color)',
+                                        pointerEvents: 'none'
+                                    }}
+                                >
+                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                                </svg>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Enter your email"
+                                    style={{
+                                        width: '100%',
+                                        padding: '14px 16px 14px 48px',
+                                        backgroundColor: 'rgba(138, 43, 226, 0.05)',
+                                        border: '2px solid rgba(138, 43, 226, 0.2)',
+                                        borderRadius: '12px',
+                                        color: 'var(--text-primary)',
+                                        fontSize: '1rem',
+                                        transition: 'all 0.3s',
+                                        outline: 'none'
+                                    }}
+                                    onFocus={(e) => {
+                                        e.target.style.borderColor = 'var(--primary-color)';
+                                        e.target.style.backgroundColor = 'rgba(138, 43, 226, 0.1)';
+                                    }}
+                                    onBlur={(e) => {
+                                        e.target.style.borderColor = 'rgba(138, 43, 226, 0.2)';
+                                        e.target.style.backgroundColor = 'rgba(138, 43, 226, 0.05)';
+                                    }}
+                                />
+                            </div>
+                        </div>
+
+                        {/* Password Field */}
+                        <div style={{ marginBottom: '24px' }}>
+                            <label style={{
+                                display: 'block',
+                                color: 'var(--text-primary)',
+                                fontSize: '0.9rem',
+                                fontWeight: '600',
+                                marginBottom: '8px'
+                            }}>
+                                Password
+                            </label>
+                            <div style={{ position: 'relative' }}>
+                                <svg
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    style={{
+                                        position: 'absolute',
+                                        left: '16px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        color: 'var(--primary-color)',
+                                        pointerEvents: 'none'
+                                    }}
+                                >
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                </svg>
+                                <input
+                                    type={showPassword ? 'text' : 'password'}
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Create a password"
+                                    style={{
+                                        width: '100%',
+                                        padding: '14px 48px 14px 48px',
+                                        backgroundColor: 'rgba(138, 43, 226, 0.05)',
+                                        border: '2px solid rgba(138, 43, 226, 0.2)',
+                                        borderRadius: '12px',
+                                        color: 'var(--text-primary)',
+                                        fontSize: '1rem',
+                                        transition: 'all 0.3s',
+                                        outline: 'none'
+                                    }}
+                                    onFocus={(e) => {
+                                        e.target.style.borderColor = 'var(--primary-color)';
+                                        e.target.style.backgroundColor = 'rgba(138, 43, 226, 0.1)';
+                                    }}
+                                    onBlur={(e) => {
+                                        e.target.style.borderColor = 'rgba(138, 43, 226, 0.2)';
+                                        e.target.style.backgroundColor = 'rgba(138, 43, 226, 0.05)';
+                                    }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    style={{
+                                        position: 'absolute',
+                                        right: '16px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        background: 'none',
+                                        border: 'none',
+                                        color: 'var(--text-secondary)',
+                                        cursor: 'pointer',
+                                        padding: 0
+                                    }}
+                                >
+                                    {showPassword ? (
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                                            <line x1="1" y1="1" x2="23" y2="23" />
+                                        </svg>
+                                    ) : (
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Confirm Password Field */}
+                        <div style={{ marginBottom: '32px' }}>
+                            <label style={{
+                                display: 'block',
+                                color: 'var(--text-primary)',
+                                fontSize: '0.9rem',
+                                fontWeight: '600',
+                                marginBottom: '8px'
+                            }}>
+                                Confirm Password
+                            </label>
+                            <div style={{ position: 'relative' }}>
+                                <svg
+                                    width="20"
+                                    height="20"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="2"
+                                    style={{
+                                        position: 'absolute',
+                                        left: '16px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        color: 'var(--primary-color)',
+                                        pointerEvents: 'none'
+                                    }}
+                                >
+                                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                                </svg>
+                                <input
+                                    type={showConfirmPassword ? 'text' : 'password'}
+                                    name="confirmPassword"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    required
+                                    placeholder="Confirm your password"
+                                    style={{
+                                        width: '100%',
+                                        padding: '14px 48px 14px 48px',
+                                        backgroundColor: 'rgba(138, 43, 226, 0.05)',
+                                        border: '2px solid rgba(138, 43, 226, 0.2)',
+                                        borderRadius: '12px',
+                                        color: 'var(--text-primary)',
+                                        fontSize: '1rem',
+                                        transition: 'all 0.3s',
+                                        outline: 'none'
+                                    }}
+                                    onFocus={(e) => {
+                                        e.target.style.borderColor = 'var(--primary-color)';
+                                        e.target.style.backgroundColor = 'rgba(138, 43, 226, 0.1)';
+                                    }}
+                                    onBlur={(e) => {
+                                        e.target.style.borderColor = 'rgba(138, 43, 226, 0.2)';
+                                        e.target.style.backgroundColor = 'rgba(138, 43, 226, 0.05)';
+                                    }}
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    style={{
+                                        position: 'absolute',
+                                        right: '16px',
+                                        top: '50%',
+                                        transform: 'translateY(-50%)',
+                                        background: 'none',
+                                        border: 'none',
+                                        color: 'var(--text-secondary)',
+                                        cursor: 'pointer',
+                                        padding: 0
+                                    }}
+                                >
+                                    {showConfirmPassword ? (
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                                            <line x1="1" y1="1" x2="23" y2="23" />
+                                        </svg>
+                                    ) : (
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    )}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Register Button */}
+                        <button
+                            type="submit"
+                            style={{
+                                width: '100%',
+                                padding: '16px',
+                                backgroundColor: 'var(--primary-color)',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '12px',
+                                fontSize: '1.1rem',
+                                fontWeight: '700',
+                                cursor: 'pointer',
+                                transition: 'all 0.3s',
+                                boxShadow: '0 8px 24px rgba(138, 43, 226, 0.4)',
+                                marginBottom: '24px'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.target.style.transform = 'translateY(-2px)';
+                                e.target.style.boxShadow = '0 12px 32px rgba(138, 43, 226, 0.6)';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.target.style.transform = 'translateY(0)';
+                                e.target.style.boxShadow = '0 8px 24px rgba(138, 43, 226, 0.4)';
+                            }}
+                        >
+                            Create Account
+                        </button>
+
+                        {/* Login Link */}
+                        <div style={{ textAlign: 'center' }}>
+                            <span style={{ color: 'var(--text-secondary)', fontSize: '0.95rem' }}>
+                                Already have an account?{' '}
+                                <Link
+                                    to="/login"
+                                    style={{
+                                        color: 'var(--primary-color)',
+                                        textDecoration: 'none',
+                                        fontWeight: '600',
+                                        transition: 'opacity 0.3s'
+                                    }}
+                                    onMouseEnter={(e) => e.target.style.opacity = '0.8'}
+                                    onMouseLeave={(e) => e.target.style.opacity = '1'}
+                                >
+                                    Login here
+                                </Link>
+                            </span>
+                        </div>
+                    </form>
                 </div>
             </div>
+
+            {/* Animation */}
+            <style>{`
+                @keyframes pulse {
+                    0%, 100% { transform: scale(1); opacity: 0.5; }
+                    50% { transform: scale(1.1); opacity: 0.8; }
+                }
+            `}</style>
         </div>
     );
 };

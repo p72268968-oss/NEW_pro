@@ -1,13 +1,13 @@
 .footer {
-    background-color: #1a1a1a;
-    color: #ffffff;
+    background-color: var(--surface-color);
+    color: var(--text-primary);
     padding: 20px 0 10px;
     margin-top: auto;
-    border-top: 1px solid #333;
+    border-top: 1px solid var(--border-color);
 }
 
 .footer h5 {
-    color: #e50914;
+    color: var(--primary-color);
     /* Netflix-like red for branding */
     font-weight: bold;
     margin-bottom: 10px;
@@ -15,7 +15,7 @@
 }
 
 .footer p {
-    color: #b3b3b3;
+    color: var(--text-secondary);
     font-size: 0.85rem;
     margin-bottom: 0.5rem;
 }
@@ -31,32 +31,32 @@
 }
 
 .footer ul li a {
-    color: #b3b3b3;
+    color: var(--text-secondary);
     text-decoration: none;
     transition: color 0.3s ease;
     font-size: 0.9rem;
 }
 
 .footer ul li a:hover {
-    color: #ffffff;
+    color: var(--text-primary);
 }
 
 .footer .social-icons a {
-    color: #ffffff;
+    color: var(--text-primary);
     font-size: 1.2rem;
     margin-right: 10px;
     transition: color 0.3s ease;
 }
 
 .footer .social-icons a:hover {
-    color: #e50914;
+    color: var(--primary-color);
 }
 
 .footer-bottom {
     margin-top: 20px;
     padding-top: 10px;
-    border-top: 1px solid #333;
+    border-top: 1px solid var(--border-color);
     text-align: center;
-    color: #666;
+    color: var(--text-secondary);
     font-size: 0.8rem;
 }

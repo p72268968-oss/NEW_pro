@@ -1,29 +1,474 @@
 /* Global Styles */
+:root {
+  --primary-color: #8a2be2;
+  /* Violet */
+  --primary-hover: #9b4dca;
+  --bg-color: #000000;
+  /* Pure Black as requested "black and violet" */
+  /* Dark Background */
+  --surface-color: #1a1a1d;
+  /* Fixed typo */
+  --surface-color-rgb: 26, 26, 29;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --nav-bg: rgba(20, 20, 20, 0.95);
+  /* Glassmorphism base */
+  --font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+  --card-bg: #1f1f1f;
+  --border-color: #333;
+}
+
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8f9fa;
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
-/* Card Hover Effect */
-.card {
-  transition: transform 0.2s;
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
 }
 
-/* Navbar Customization */
-.navbar-brand {
-  font-weight: bold;
-  letter-spacing: 1px;
+::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
 }
 
-/* Seat Selection */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+}
+
+/* Seat Selection Styles Restored & Themed */
 .btn-outline-secondary {
   width: 40px;
   height: 40px;
   padding: 0;
   font-size: 12px;
+  border-color: #666;
+  color: #ccc;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #666;
+  color: #fff;
+}
+
+/* Custom Navbar Styles (overriding Default) */
+.custom-navbar {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  /* Make it darker/glassy */
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.custom-navbar .navbar-brand {
+  color: var(--primary-color) !important;
+  font-weight: 800;
+  font-size: 1.5rem;
+  text-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+}
+
+.custom-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
+  color: #fff !important;
+}
+
+/* Admin Panel Specifics */
+.admin-sidebar {
+  background-color: var(--surface-color);
+  border-right: 1px solid var(--border-color);
+  height: 100vh;
+}
+
+/* Admin List Group Dark Theme */
+.list-group-item {
+  background-color: var(--surface-color);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+.list-group-item:hover {
+  background-color: #2a2a2a;
+  color: var(--text-primary);
+}
+
+.list-group-item.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Dark Tables */
+.table {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  vertical-align: middle;
+  border-top: 1px solid var(--border-color);
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid var(--border-color);
+  background-color: #222;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Active Navigation Link */
+.active-link {
+  color: var(--primary-color) !important;
+  font-weight: 600;
+  position: relative;
+}
+
+.active-link::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+/* Form Labels */
+.form-label {
+  color: var(--text-secondary) !important;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+/* Text Muted Fix */
+.text-muted {
+  color: var(--text-secondary) !important;
+}
+
+/* Enhanced Button Animations */
+.btn {
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(138, 43, 226, 0.3);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Card Hover Effects */
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(138, 43, 226, 0.3);
+  border-color: rgba(138, 43, 226, 0.5);
+}
+
+/* Input Focus Effects */
+.form-control {
+  background-color: #333;
+  border-color: #444;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background-color: #333;
+  border-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 0 0 0.25rem rgba(138, 43, 226, 0.25);
+  transform: translateY(-2px);
+}
+
+/* Link Hover Effects */
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+a:hover {
+  color: var(--primary-color);
+}
+
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Loading Animation */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scale In Animation */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Slide In Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Badge Hover Effects */
+.badge {
+  transition: all 0.3s ease;
+}
+
+.badge:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(138, 43, 226, 0.3);
+}
+
+/* Image Hover Effects */
+img {
+  transition: all 0.3s ease;
+}
+
+/* Select Dropdown Enhancement */
+.form-select {
+  background-color: #333;
+  border-color: #444;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.form-select:focus {
+  background-color: #333;
+  border-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 0 0 0.25rem rgba(138, 43, 226, 0.25);
+}
+
+.form-select:hover {
+  border-color: var(--primary-color);
+}
+
+/* Alert Enhancement */
+.alert {
+  animation: fadeIn 0.5s ease;
+  border-left: 4px solid var(--primary-color);
+}
+
+/* Table Row Hover */
+.table-hover tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(138, 43, 226, 0.1);
+  transform: scale(1.01);
+}
+
+/* List Group Item Enhancement */
+.list-group-item {
+  background-color: var(--surface-color);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.list-group-item:hover {
+  background-color: #2a2a2a;
+  color: var(--text-primary);
+  transform: translateX(5px);
+  border-left: 3px solid var(--primary-color);
+}
+
+/* Navbar Link Enhancement */
+.custom-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.custom-navbar .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--primary-color);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.custom-navbar .nav-link:hover::after,
+.custom-navbar .nav-link.active::after {
+  width: 80%;
+}
+
+.custom-navbar .nav-link:hover,
+.custom-navbar .nav-link.active {
+  color: #fff !important;
+}
+
+/* Movie Card Specific Animations */
+.movie-card {
+  animation: fadeIn 0.5s ease;
+}
+
+.movie-card .card-img-top {
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Utility Classes */
+.fade-in {
+  animation: fadeIn 0.5s ease;
+}
+
+.scale-in {
+  animation: scaleIn 0.5s ease;
+}
+
+.slide-in {
+  animation: slideIn 0.5s ease;
+}
+
+/* Glow Effect */
+.glow {
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+  transition: box-shadow 0.3s ease;
+}
+
+.glow:hover {
+  box-shadow: 0 0 30px rgba(138, 43, 226, 0.8);
 }

@@ -1,0 +1,65 @@
+/* Global Styles - MovieTicket Admin Theme */
+:root {
+  --primary-color: #8a2be2;
+  --primary-hover: #9b4dca;
+  --bg-color: #000000;
+  --surface-color: #1a1a1d;
+  --surface-color-rgb: 26, 26, 29;
+  --text-primary: #ffffff;
+  --text-secondary: #b3b3b3;
+  --nav-bg: rgba(0, 0, 0, 0.95);
+  --font-family: 'Segoe UI', 'Roboto', Helvetica, Arial, sans-serif;
+  --card-bg: #111111;
+  --border-color: #333;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, #000000 0%, #1a0b2e 50%, #000000 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(138, 43, 226, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* Selection */
+::selection {
+  background: rgba(138, 43, 226, 0.3);
+  color: var(--text-primary);
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+button,
+a {
+  transition: all 0.3s ease !important;
+}
